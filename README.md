@@ -15,7 +15,16 @@ Create a `.env` file in the project root:
 
 ```
 OPENAI_API_KEY=sk-...
+PINECONE_API_KEY=pcsk-...
+PINECONE_INDEX_NAME=your-index-name
 ```
+
+`PINECONE_API_KEY`/`PINECONE_INDEX_NAME` are only required for the Pinecone-backed
+endpoints (currently `GET /debug/pinecone`); `/ask` and `/health` work without them.
+The Pinecone index must already exist (created via the Pinecone console or API) with
+dimension `1536` and metric `cosine`, matching `text-embedding-3-small`
+(`EMBEDDING_MODEL` in `main.py`) — this is the same model used at both ingest and
+query time so vectors stay comparable.
 
 ## Running
 
@@ -39,26 +48,119 @@ The UI expects the API at `http://127.0.0.1:8000`.
 
 Liveness check. Returns `{"status": "ok"}`.
 
-### `POST /ask`
+### `GET /debug/pinecone`
 
-```json
-{ "question": "What is the capital of France?" }
-```
-
-Returns the answer plus latency, token, and cost metrics:
+Confirms Pinecone is reachable and reports basic index stats. Requires
+`PINECONE_API_KEY` and `PINECONE_INDEX_NAME` to be set; returns `500` if either is
+missing, `502` if Pinecone can't be reached or the index doesn't exist.
 
 ```json
 {
-  "answer": "...",
+  "status": "ok",
+  "index_name": "your-index-name",
+  "embedding_model": "text-embedding-3-small",
+  "vector_count": 0,
+  "dimension": 1536
+}
+```
+
+### `POST /ingest`
+
+Chunks text with `RecursiveCharacterTextSplitter` (`CHUNK_SIZE`/`CHUNK_OVERLAP` env
+vars, default 800/100), embeds each chunk with `text-embedding-3-small`, and upserts
+into Pinecone. Vector IDs are `{document_id}-{chunk_index}`, so re-ingesting the same
+`document_id` overwrites its previous chunks rather than duplicating them.
+
+```json
+{ "text": "...", "document_id": "doc-1", "source": "handbook.pdf" }
+```
+
+`source` is optional. Returns `400` if `text` or `document_id` is blank/whitespace-only.
+
+```powershell
+curl.exe -s -X POST http://127.0.0.1:8000/ingest -H "Content-Type: application/json" `
+  -d '{"text": "Some document text...", "document_id": "doc-1", "source": "handbook.pdf"}'
+```
+
+Response:
+
+```json
+{ "document_id": "doc-1", "chunks_indexed": 4, "status": "ok" }
+```
+
+Each vector's metadata is `{"document_id", "chunk_index", "source", "text"}` — the
+chunk text is stored alongside the IDs so retrieval can return matched content
+directly, without a separate lookup.
+
+### `GET /debug/retrieve?q=...`
+
+Embeds `q` with the same `text-embedding-3-small` model used at ingest, queries
+Pinecone for the top 5 nearest chunks, and drops any scoring below
+`MIN_SCORE_THRESHOLD` (env var, default `0.3`) so unrelated chunks don't get returned
+just to fill out top-k. Does **not** call the LLM — for verifying retrieval quality
+before wiring generation into `/ask`. Returns `400` if `q` is blank.
+
+```powershell
+curl.exe -s "http://127.0.0.1:8000/debug/retrieve?q=How+many+remote+days+are+allowed"
+```
+
+```json
+{
+  "query": "How many remote days are allowed",
+  "min_score": 0.3,
+  "matches": [
+    {
+      "score": 0.579,
+      "document_id": "remote-work-policy",
+      "chunk_index": 0,
+      "source": "",
+      "text": "Remote Work Policy. Employees may work remotely up to 3 days per week..."
+    }
+  ]
+}
+```
+
+### `POST /ask`
+
+Retrieval-augmented: embeds the question, retrieves up to `RETRIEVAL_TOP_K` (default 5)
+chunks from Pinecone above `MIN_SCORE_THRESHOLD`, and answers strictly from that
+context using `RAG_PROMPT_TEMPLATE` in `main.py`:
+
+```
+Answer using ONLY the context below.
+If the context does not contain the answer, say:
+"I don't have enough information to answer that."
+Cite the document_id of each chunk you used.
+
+Context:
+{retrieved_chunks}
+
+Question: {question}
+```
+
+```json
+{ "question": "How many remote days are allowed?" }
+```
+
+Returns the answer, the chunks used to ground it, plus latency/token/cost metrics
+(unchanged formula from Session 1 — completion cost only, embedding cost isn't
+included in `cost_usd`):
+
+```json
+{
+  "answer": "Employees may work remotely up to 3 days per week, subject to manager approval. (document_id: remote-work-policy)",
   "model": "gpt-4o-mini",
+  "retrieved_chunks": [
+    { "chunk_id": "remote-work-policy-0", "document_id": "remote-work-policy", "score": 0.590 }
+  ],
   "metrics": {
-    "time_to_first_token_sec": 0.412,
-    "total_latency_sec": 1.87,
-    "tokens_per_sec": 34.2,
-    "prompt_tokens": 12,
-    "completion_tokens": 64,
-    "total_tokens": 76,
-    "cost_usd": 0.000040
+    "time_to_first_token_sec": 0.562,
+    "total_latency_sec": 0.763,
+    "tokens_per_sec": 124.03,
+    "prompt_tokens": 323,
+    "completion_tokens": 25,
+    "total_tokens": 348,
+    "cost_usd": 0.000063
   }
 }
 ```

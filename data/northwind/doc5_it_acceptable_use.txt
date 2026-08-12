@@ -1,0 +1,69 @@
+Northwind Robotics IT Acceptable Use Policy
+Author: Information Technology
+Document ID: POL-220
+Version: 1.4
+Effective date: 1 February 2026
+Classification: Internal - All Employees
+Owner: Head of IT
+Related: POL-207 (Security), POL-101 (Handbook)
+
+==============================================================================
+1. PURPOSE
+==============================================================================
+
+This policy covers day-to-day use of Northwind laptops, email, Slack,
+cloud workspaces, and internal apps. It complements POL-207. Where this
+document and POL-207 conflict on a security control, POL-207 wins.
+
+==============================================================================
+2. IDENTITY AND ACCESS
+==============================================================================
+
+Use your own account. Do not share SSO sessions. When pair-programming,
+use screen share or approved pair tools rather than exchanging passwords.
+
+Access reviews run quarterly for systems that hold Confidential or
+Restricted data. Managers must respond to access review tickets within
+ten working days.
+
+==============================================================================
+3. EMAIL AND MESSAGING
+==============================================================================
+
+Treat external email as untrusted. Hover links. Report phishing with the
+Report button; do not forward suspected phishing widely.
+
+Slack is not a records system for contracts or HR decisions. Important
+approvals that affect pay, access, or customer commitments should live in
+the HRIS, ticket system, or signed documents.
+
+Do not auto-forward Northwind email to a personal Gmail/Outlook account.
+
+==============================================================================
+4. CLOUD DRIVES AND CODE
+==============================================================================
+
+Store work files in company Google Workspace / GitHub / approved product
+repos. Personal cloud folders are not backups for Confidential data.
+
+Secrets scanners run on git pushes. If you trip a scanner, rotate the
+credential immediately and open a Security ticket. Deleting the commit
+alone is not enough if the secret was pushed to a shared remote.
+
+==============================================================================
+5. MONITORING
+==============================================================================
+
+Northwind may monitor corporate systems for security, legal, and
+operational reasons as permitted by local law and employment contracts.
+Employees should not expect absolute privacy on company devices.
+
+==============================================================================
+6. SUPPORT
+==============================================================================
+
+IT helpdesk: #it-help or it@northwind.example
+Severity definitions follow the intranet runbook.
+Document ID: POL-220
+
+End of POL-220

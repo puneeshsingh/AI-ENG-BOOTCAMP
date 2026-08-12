@@ -1,0 +1,160 @@
+Northwind Robotics Product Spec
+Author: Engineering
+Document ID: SPEC-WB9
+Version: 1.8
+Effective date: 20 February 2026
+Last review: 10 February 2026
+Classification: Internal - Engineering, Field, Support, Sales Engineering
+Owner: Director of Robotics Platform
+Approver: CTO
+Related: POL-101, POL-207
+
+==============================================================================
+1. PRODUCT SUMMARY
+==============================================================================
+
+The WB-9 is Northwind's autonomous mobile robot for indoor warehouse
+transport of totes and small pallets. It navigates using a combination of
+LiDAR, wheel odometry, and facility maps supplied by the customer or built
+during commissioning.
+
+This specification is the engineering source of truth for payload, power,
+speed, environment, and field constraints. Marketing one-pagers must not
+contradict SPEC-WB9. If a customer asks for numbers, quote this document
+or a released datasheet derived from it.
+
+==============================================================================
+2. KEY PERFORMANCE NUMBERS
+==============================================================================
+
+The WB-9 warehouse robot has a payload capacity of 25 kg.
+Battery life is 8 hours on a single charge with a 90 minute recharge.
+Maximum speed is 1.5 metres per second. Operating temperature
+range is 0 to 40 degrees Celsius.
+
+Payload notes. 25 kg is the rated continuous payload including the tote.
+Do not exceed rated payload. Overload trips are logged and may void
+support terms if repeated after warnings.
+
+Battery notes. Eight-hour runtime assumes a mixed duty cycle at 20 C with
+average load of 15 kg. Cold warehouses near 0 C can reduce runtime by up
+to 20%. The docking charger requires a dedicated 230V (EU/UK) or 120V (US)
+circuit as specified in the install guide.
+
+Speed notes. 1.5 m/s is the software-limited maximum in open aisles with a
+valid safety field. In narrow aisles or near humans, adaptive speed limits
+apply automatically and cannot be overridden in customer mode.
+
+==============================================================================
+3. DIMENSIONS, WEIGHT, AND CLEARANCE
+==============================================================================
+
+Footprint: 700 mm length x 500 mm width x 350 mm height (robot base without
+tote). Shipping weight (robot only): 48 kg. Turning radius: approximately
+0.6 m in place with differential drive.
+
+Aisle guidance. Minimum recommended aisle width for bidirectional traffic
+with WB-9 is 2.0 m. Unidirectional guided paths may operate in 1.4 m aisles
+after a site survey.
+
+Floor quality. Requires sealed concrete or equivalent with slopes under
+5 degrees. Grates, large expansion gaps, and standing water are out of
+spec. Report floor issues during commissioning; do not "try it anyway".
+
+==============================================================================
+4. SENSORS, COMPUTE, AND CONNECTIVITY
+==============================================================================
+
+Primary LiDAR: 360-degree safety-rated unit with protective bumper zones.
+Secondary: depth camera for tote alignment at pick stations. IMU and wheel
+encoders support short dead-reckon segments.
+
+Onboard compute runs the Northwind autonomy stack. Customers do not receive
+root shell access. Diagnostic mode for field engineers uses badge + MFA
+tokens per POL-207.
+
+Connectivity: Wi-Fi 6 dual-band and optional private 5G module. Robots must
+remain reachable for OTA updates and emergency stop coordination. Offline
+mission mode is limited to pre-downloaded routes and expires after 12 hours
+without check-in.
+
+==============================================================================
+5. SAFETY AND HUMAN INTERACTION
+==============================================================================
+
+WB-9 includes safety-rated monitored stop and field intrusion detection.
+E-stop buttons are on both sides of the chassis and on the optional
+operator pendant.
+
+Never ride the robot. Never disable safety fields to "save time" on a
+demo. Safety bypass for maintenance exists only in a keyed maintenance
+mode documented for certified technicians.
+
+Incident response. If a WB-9 contacts a person or racking with force beyond
+a bump alert, stop the fleet segment, photograph the scene when safe, and
+open a Severity-1 ticket. People injuries follow site emergency procedures
+first, then Northwind incident process.
+
+==============================================================================
+6. SOFTWARE VERSIONS AND OTA
+==============================================================================
+
+Production robots run signed software only. OTA updates require a staged
+rollout: canary robots, then site, then region. Customers can postpone a
+non-critical update for up to 14 days; safety-critical updates may be
+forced with notice.
+
+Do not flash unofficial builds. Doing so is a POL-207 violation and may
+remove the robot from support.
+
+Map updates. Facility map changes (new racks, blocked aisles) must be
+validated in staging before production push. Stale maps are a leading cause
+of wrong-path missions.
+
+==============================================================================
+7. MAINTENANCE AND FIELD SERVICE
+==============================================================================
+
+Daily: visual check of LiDAR windows, bumpers, and caster debris.
+Weekly: inspect tote latches and charge contacts.
+Quarterly: battery health report via diagnostics; replace packs below the
+health threshold published in the service bulletin.
+
+Consumables (bumper covers, charge pads) are ordered through Support with
+the robot serial number. Serial format: WB9-YYYY-#####.
+
+Field engineers travelling to sites claim travel under POL-114 and follow
+hybrid/remote rules in POL-101 when scheduling office vs site days.
+
+==============================================================================
+8. CUSTOMER ENVIRONMENT ASSUMPTIONS
+==============================================================================
+
+Customers provide: accurate maps or survey access, Wi-Fi coverage meeting
+the RF checklist, marked keep-out zones, and trained on-site contacts.
+Northwind does not operate robots in explosive atmospheres or outdoors.
+
+Integration. WB-9 exposes a documented REST and MQTT interface for WMS
+hand-off. Custom integrations need an Engineering change request.
+
+==============================================================================
+9. KNOWN LIMITATIONS (SUPPORT AND SALES MUST READ)
+==============================================================================
+
+WB-9 is not rated for outdoor yards, freezer rooms below 0 C, or payloads
+above 25 kg. It is not a collaborative robot arm. It does not climb
+conveyors. Claims that contradict this section are incorrect regardless of
+what a slide deck says.
+
+When answering "can it do X?" prefer SPEC-WB9 over memory. If the answer
+is not here, say you need Engineering confirmation.
+
+==============================================================================
+10. DOCUMENT CONTROL
+==============================================================================
+
+Change requests: Engineering Change Board.
+Public datasheet derivation must cite SPEC-WB9 version.
+Document ID: SPEC-WB9
+
+End of SPEC-WB9

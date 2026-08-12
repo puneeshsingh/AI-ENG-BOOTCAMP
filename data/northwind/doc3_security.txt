@@ -1,0 +1,188 @@
+Northwind Robotics Security Policy
+Author: Information Security
+Document ID: POL-207
+Version: 4.1
+Effective date: 15 January 2026
+Last review: 5 January 2026
+Next review: 5 July 2026
+Classification: Internal - All Employees
+Owner: Head of Information Security
+Approver: CTO
+Related: POL-101 (Employee Handbook), POL-114 (Expenses), SPEC-WB9 (Product)
+
+==============================================================================
+1. PURPOSE AND RISK STATEMENT
+==============================================================================
+
+Northwind Robotics builds robots that operate in customer warehouses. A
+security failure can injure people, stop a customer's operations, or leak
+commercial data. This policy sets the minimum security controls for people,
+devices, accounts, and cloud systems.
+
+Everyone at Northwind is responsible for security. Engineering owns product
+security. IT owns corporate systems. Information Security owns this policy,
+exception handling, and incident command.
+
+==============================================================================
+2. ACCOUNTS, PASSWORDS, AND AUTHENTICATION
+==============================================================================
+
+Passwords must be at least 14 characters and rotated every 90 days.
+Multi-factor authentication is mandatory for all systems.
+
+Prefer a password manager (company-approved) and unique passwords per
+system. Do not reuse Northwind passwords on personal sites. Do not share
+passwords in Slack, email, or tickets. If a shared break-glass account is
+required, it must be vaulted, logged, and owned by IT.
+
+SSO. Use Northwind SSO when a system supports it. Local accounts are
+temporary exceptions and must be ticketed.
+
+Service accounts. Machine credentials live in the secrets manager. They are
+never committed to git, never pasted into chat, and never stored in a
+personal notes app.
+
+Contractor accounts. Contractors receive time-bounded access. Managers must
+confirm offboarding on the contractor's last day.
+
+==============================================================================
+3. DEVICES AND ENDPOINT PROTECTION
+==============================================================================
+
+Company laptops must be encrypted. Lost devices must be reported
+within one hour to the security desk.
+
+Full-disk encryption (FileVault or BitLocker) is mandatory and verified by
+MDM. Do not disable MDM profiles. Jailbroken or rooted personal devices may
+not enrol in email.
+
+USB storage. Unsigned USB mass storage is blocked on corporate laptops.
+Approved encrypted USB drives may be issued for field work; they must be
+returned on project end.
+
+Patching. Critical OS and browser patches must be applied within seven days
+of release. Devices that miss two patch cycles may lose network access until
+remediated.
+
+Clear desk and clear screen. Lock your machine when you step away. Do not
+leave customer floor plans or credentials visible in open offices.
+
+==============================================================================
+4. NETWORK, REMOTE ACCESS, AND TRAVEL
+==============================================================================
+
+Corporate Wi-Fi uses 802.1X. Guest Wi-Fi is internet-only and must not be
+used for Northwind accounts.
+
+VPN. Remote access to internal admin tools requires the company VPN plus
+MFA. Do not use unapproved remote desktop relays.
+
+Public Wi-Fi. When travelling, prefer phone tethering or VPN before using
+cafe or hotel Wi-Fi for corporate work. Avoid online banking and payroll
+actions on public networks.
+
+Physical travel to higher-risk regions requires a travel advisory from
+Security. Loaner clean laptops may be issued; do not take a primary
+engineering laptop if Security forbids it.
+
+==============================================================================
+5. DATA CLASSIFICATION AND HANDLING
+==============================================================================
+
+Data classes:
+
+  Public - marketing site content, published job posts.
+  Internal - handbooks, most Slack channels, internal roadmaps.
+  Confidential - customer contracts, unreleased product designs, payroll.
+  Restricted - secrets, identity documents, production credentials,
+  safety-critical robot configurations.
+
+Store Confidential and Restricted data only in approved systems. Do not
+upload customer maps or warehouse layouts to personal Drive, ChatGPT-style
+consumer tools, or random SaaS without a Security review.
+
+Email. Do not send Restricted data by email without encryption. Prefer a
+link to an access-controlled workspace.
+
+Retention. Follow the retention schedule on the intranet. Do not keep
+forever "just in case" exports of customer data on laptops.
+
+==============================================================================
+6. PRODUCT AND ROBOT SECURITY (SUMMARY)
+==============================================================================
+
+Field engineers must follow SPEC-WB9 for physical access, maintenance modes,
+and safe robot shutdown. Security-relevant product changes (auth to robot
+APIs, OTA update signing, safety interlocks) require a Security review in
+the engineering change process.
+
+Default credentials on demo robots must be rotated before any customer site
+visit. Demo robots leaving campus are inventory-tracked.
+
+If a robot behaves unexpectedly in a way that could indicate tampering or a
+compromised controller, power down safely, isolate the unit, and page the
+security on-call.
+
+==============================================================================
+7. ACCEPTABLE USE (HIGH LEVEL)
+==============================================================================
+
+Company systems are for Northwind work. Limited personal use is tolerated if
+it does not consume significant resources, violate law, or introduce risk.
+Mining cryptocurrency, scanning the internet for vulnerabilities without
+authorisation, or hosting personal businesses on Northwind infrastructure
+is prohibited.
+
+AI coding assistants and chat tools: only use company-approved tiers that
+meet our data handling rules. Do not paste Restricted secrets or full
+customer datasets into unapproved tools.
+
+==============================================================================
+8. INCIDENT REPORTING AND RESPONSE
+==============================================================================
+
+Report immediately (do not wait for "proof"):
+
+  Lost or stolen laptop, phone, badge, or encrypted USB.
+  Suspected phishing where you entered credentials.
+  Unexpected MFA prompts.
+  Ransomware symptoms, mass file encryption, or extortion messages.
+  Suspected leak of customer or employee personal data.
+
+Lost devices must be reported within one hour to the security desk, as
+stated in Section 3. Use #security-incident on Slack and the 24/7 phone
+bridge listed on the intranet. If Slack is unavailable, call the bridge.
+
+Do not attempt to "test" malware or negotiate with attackers yourself.
+Preserve evidence (screenshots, headers) when safe to do so.
+
+Security will run incident command, communicate with Legal when needed, and
+notify customers or regulators when required by contract or law.
+
+==============================================================================
+9. THIRD PARTIES AND PROCUREMENT
+==============================================================================
+
+Vendors that process personal data or connect to Northwind systems need a
+security questionnaire and contract clauses before go-live. Employees may
+not swipe a personal card for a new SaaS tool that stores company data to
+bypass procurement (see also POL-114).
+
+Customer security questionnaires are answered by Security and Sales
+Engineering jointly. Do not invent answers.
+
+==============================================================================
+10. EXCEPTIONS, AUDIT, AND ENFORCEMENT
+==============================================================================
+
+Exceptions to this policy require a written risk acceptance by a director
+and Security, with an expiry date. Open-ended exceptions are not allowed.
+
+Security may audit accounts, devices, and access logs. Violations can lead
+to access removal and disciplinary action under POL-101.
+
+Questions: security@northwind.example
+Urgent: security desk / #security-incident
+Document ID for tickets and RAG demos: POL-207
+
+End of POL-207

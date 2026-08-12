@@ -1,0 +1,62 @@
+Northwind Robotics Facilities and Workplace Guide
+Author: Workplace Experience
+Document ID: POL-118
+Version: 1.2
+Effective date: 1 March 2026
+Classification: Internal - All Employees
+Owner: Head of Workplace
+Related: POL-101 (Handbook), POL-207 (Security)
+
+==============================================================================
+1. OFFICES
+==============================================================================
+
+Cambridge (HQ). Open 07:30 to 19:30 on weekdays. Badge access required.
+Visitors must sign in at reception and wear a visitor pass. Do not badge
+tailgate.
+
+Berlin. Similar hours. Lab areas require safety induction before entry.
+Austin. Manufacturing floor has separate PPE rules posted at the gate.
+Singapore. Hot desks for GTM; engineering lab is badge-restricted.
+
+==============================================================================
+2. MEETING ROOMS AND HYBRID ETIQUETTE
+==============================================================================
+
+Book rooms in the Workplace app. Release rooms you will not use so others
+can take them. For hybrid meetings, the in-room host should admit remote
+participants and check audio before starting.
+
+Do not leave confidential printouts in rooms. Clear whiteboards after
+sessions that discuss unreleased products or customers.
+
+==============================================================================
+3. MAIL, PACKAGES, AND HARDWARE
+==============================================================================
+
+Personal packages to the office are discouraged. Company hardware deliveries
+go to the IT cage. Field equipment for customer sites must be logged out
+in the asset system with a return date.
+
+==============================================================================
+4. EMERGENCY
+==============================================================================
+
+Know the nearest exit and assembly point for your floor. Fire wardens are
+listed on the floor map. First aid kits are at reception and in each lab.
+
+If you smell smoke, hear a continuous alarm, or see an unsafe robot test,
+evacuate first and report second.
+
+==============================================================================
+5. SUSTAINABILITY
+==============================================================================
+
+Sort recycling per local posters. Switch off unused lab benches. Company
+travel preferences favour rail under four hours when schedule allows
+(expense rules still follow POL-114).
+
+Document ID: POL-118
+Questions: workplace@northwind.example
+
+End of POL-118

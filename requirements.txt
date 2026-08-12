@@ -2,6 +2,8 @@ fastapi
 uvicorn
 python-dotenv
 openai
+pinecone
+langchain-text-splitters
 streamlit
 requests
 pytest

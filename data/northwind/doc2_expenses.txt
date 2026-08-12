@@ -1,0 +1,187 @@
+Northwind Robotics Expenses Policy
+Author: Finance Team
+Document ID: POL-114
+Version: 2.6
+Effective date: 1 January 2026
+Last review: 18 December 2025
+Next review: 30 June 2026
+Classification: Internal - All Employees
+Owner: Chief Financial Officer
+Approver: CFO
+Related: POL-101 (Employee Handbook), POL-207 (Security Policy)
+
+==============================================================================
+1. PURPOSE
+==============================================================================
+
+This policy explains how Northwind Robotics reimburses business expenses.
+It applies to employees, contractors with expense clauses in their
+agreements, and interviewees travelling at Northwind's request.
+
+The goals are simple: pay legitimate business costs quickly, keep an audit
+trail, and prevent fraud. If a cost is unusual, ask Finance before you
+spend. "I assumed it was fine" is not an approval.
+
+==============================================================================
+2. GENERAL RULES
+==============================================================================
+
+Business purpose. Every claim must state who benefited and why the spend
+was necessary for Northwind work (customer visit, conference, lab supply,
+recruiting meal, and so on).
+
+Pre-approval. Single expenses over £500 (or local equivalent) need written
+manager approval before purchase. Single expenses over £2,000 also need
+Finance approval. Air travel outside Europe always needs manager approval
+in advance.
+
+Personal cards vs company cards. Prefer a company card when issued. If you
+use a personal card, reclaim via the expenses tool. Do not pay other
+employees' costs from your personal card except in a documented emergency.
+
+Currency. Claim in the currency charged. The expenses tool converts using
+the rate on the transaction date. Do not invent your own FX rate.
+
+==============================================================================
+3. MILEAGE, PARKING, AND LOCAL TRANSPORT
+==============================================================================
+
+Travel over 50 miles may be claimed at 45 pence per mile.
+
+Mileage is measured from the employee's normal workplace (or home, when
+the employee is fully remote under POL-101) to the destination and back,
+using the shorter reasonable route. Commuting between home and the normal
+office is not claimable.
+
+Parking and tolls for business trips are claimable with a receipt. Congestion
+charges and ULEZ-style fees are claimable when the trip is business-related.
+Speeding fines and parking penalties are never reimbursed.
+
+Trains and buses. Standard class is the default. First class requires
+director approval and a documented reason (for example accessibility or a
+same-day return with customer work lasting over eight hours).
+
+Taxis and rideshare. Allowed when public transport is impractical (late
+night, heavy equipment, safety). Keep the receipt. Airport runs for personal
+holidays are not claimable.
+
+==============================================================================
+4. MEALS AND ENTERTAINMENT
+==============================================================================
+
+Meals are reimbursed up to 30 pounds per day when travelling overnight.
+
+Day trips (no overnight stay) do not receive a daily meal allowance.
+Reasonable single meals while travelling on a day trip may be claimed up
+to £15 with a receipt when the trip prevents a normal lunch break.
+
+Alcohol. Modest alcohol with a customer meal is allowed if local law and
+customer policy permit it, and must be itemised. Alcohol on flights and
+in-room minibars is not reimbursable.
+
+Team meals. Internal team lunches or dinners need manager approval. Cap is
+£25 per person excluding tip unless a director approves a higher amount for
+a recognised celebration (ship party, major customer win).
+
+Client entertainment. Record attendee names and companies on the claim.
+Private entertainment unrelated to business development is not reimbursable.
+
+Tips. Up to 15% where customary and shown on the receipt or card slip.
+
+==============================================================================
+5. LODGING AND FLIGHTS
+==============================================================================
+
+Hotels. Book a reasonable business hotel near the work site. Soft cap is
+£180 per night in major cities (London, New York, Singapore) and £120
+elsewhere unless Finance pre-approves. Room service and movies are personal.
+
+Airbnb and alternative lodging are allowed if cheaper than the hotel cap
+and the address is shared with your manager for safety.
+
+Flights. Book economy. Refundable fares need a documented reason. Use the
+company travel portal when available. Seat upgrades paid personally are not
+reimbursable. Bag fees for required tools or demo equipment are reimbursable.
+
+Loyalty points earned on business travel may be retained by the employee,
+but booking choices must prioritise cost and schedule for Northwind, not
+points maximisation.
+
+==============================================================================
+6. RECEIPTS, DEADLINES, AND REJECTIONS
+==============================================================================
+
+All claims must be submitted within 30 days with a receipt.
+Claims without a receipt will be rejected.
+
+Itemised receipts are required for meals over £25 and for any hotel stay.
+Card statements alone are not enough except for transit where no itemised
+receipt is issued; in that case attach the statement line and a note.
+
+Missing receipt process. If a receipt is lost, submit a missing-receipt
+declaration once per quarter maximum. Repeated missing receipts trigger a
+Finance review with your manager.
+
+Late claims. Claims older than 30 days need director approval and will be
+paid in the next cycle only if approved. Claims older than 90 days are
+denied except for documented system outages.
+
+==============================================================================
+7. CATEGORIES OFTEN CONFUSED WITH EXPENSES
+==============================================================================
+
+Home office equipment. Covered under POL-101 with a separate allowance and
+approval path. Do not claim monitors or chairs as "travel" under POL-114.
+
+Software and SaaS. New tools that store company or customer data need a
+Security review (POL-207) before purchase. Personal productivity apps under
+£20/month may be claimed with manager approval if not available in the
+catalogue.
+
+Training and conferences. Course fees usually go through the L&D allowance
+in POL-101. Travel to an approved conference follows this expenses policy.
+
+Phone plans. Roles with on-call duties may receive a phone stipend published
+by IT. Do not claim the full consumer phone bill unless the stipend letter
+says so.
+
+==============================================================================
+8. ADVANCES AND FOREIGN TRAVEL
+==============================================================================
+
+Cash advances are rare and require Finance approval. Unused advance amounts
+must be returned within seven days of return.
+
+VAT and sales tax. Prefer suppliers who can invoice Northwind directly for
+large purchases so tax can be recovered. Employees should not reclaim VAT
+personally unless Finance instructs them to.
+
+Visas and vaccinations required for business travel are reimbursable with
+receipts. Passport renewals are personal unless Finance confirms otherwise
+for a dedicated travel role.
+
+==============================================================================
+9. FRAUD, AUDIT, AND CONSEQUENCES
+==============================================================================
+
+Finance samples claims monthly. Fabricated receipts, duplicate claims, or
+personal spend coded as business spend are gross misconduct under POL-101
+and may lead to dismissal and recovery of funds.
+
+Managers who approve claims they know are improper share accountability.
+If you are unsure, ask Finance before approving.
+
+==============================================================================
+10. HOW TO SUBMIT
+==============================================================================
+
+1. Collect itemised receipts (photo or PDF).
+2. Open the expenses tool within 30 days of the transaction.
+3. Tag the correct cost centre and project code.
+4. Reference POL-114 in the notes if the category is unusual.
+5. Route to your manager; amounts over £2,000 also route to Finance.
+
+Questions: finance-expenses@northwind.example
+Policy ID reminder for retrieval and support tickets: POL-114
+
+End of POL-114

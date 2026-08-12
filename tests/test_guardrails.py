@@ -15,6 +15,17 @@ def reset_guardrail_state(monkeypatch):
     main._request_log.clear()
 
 
+@pytest.fixture(autouse=True)
+def mock_retrieval(monkeypatch):
+    """/ask now embeds the question and queries Pinecone before generating. Mock both
+    so the suite stays offline by default; tests that care about retrieval override
+    main.get_pinecone_index directly."""
+    monkeypatch.setattr(main, "embed_text", lambda text: [0.0] * main.EMBEDDING_DIMENSIONS)
+    fake_index = SimpleNamespace(query=lambda **kwargs: SimpleNamespace(matches=[]))
+    monkeypatch.setattr(main, "get_pinecone_index", lambda: fake_index)
+    yield
+
+
 @pytest.fixture
 def client():
     return TestClient(main.app)
@@ -120,6 +131,64 @@ def test_completion_request_caps_max_tokens(client, monkeypatch):
 
     client.post("/ask", json={"question": "hello"})
     assert captured_kwargs["max_tokens"] == main.MAX_COMPLETION_TOKENS
+
+
+def make_match(chunk_id, document_id, score, text):
+    return SimpleNamespace(id=chunk_id, score=score, metadata={"document_id": document_id, "text": text})
+
+
+def test_ask_includes_retrieved_chunks_and_grounds_the_prompt(client, monkeypatch):
+    monkeypatch.setattr(
+        main.client.moderations, "create", lambda input: make_moderation_response(False)
+    )
+    match = make_match("remote-work-policy-0", "remote-work-policy", 0.58, "Up to 3 remote days per week.")
+    monkeypatch.setattr(
+        main, "get_pinecone_index", lambda: SimpleNamespace(query=lambda **kw: SimpleNamespace(matches=[match]))
+    )
+    captured_kwargs = {}
+
+    def fake_create(**kwargs):
+        captured_kwargs.update(kwargs)
+        return make_stream("Up to 3 days [remote-work-policy]", prompt_tokens=50, completion_tokens=10)
+
+    monkeypatch.setattr(main.client.chat.completions, "create", fake_create)
+
+    response = client.post("/ask", json={"question": "How many remote days are allowed?"})
+    assert response.status_code == 200
+    body = response.json()
+
+    assert body["retrieved_chunks"] == [
+        {"chunk_id": "remote-work-policy-0", "document_id": "remote-work-policy", "score": 0.58}
+    ]
+    # the retrieved chunk text must actually reach the model as grounding context
+    user_message = captured_kwargs["messages"][0]["content"]
+    assert "Up to 3 remote days per week." in user_message
+    assert "How many remote days are allowed?" in user_message
+
+
+def test_ask_with_no_matches_still_answers_with_empty_context(client, monkeypatch):
+    monkeypatch.setattr(
+        main.client.moderations, "create", lambda input: make_moderation_response(False)
+    )
+    # default mock_retrieval fixture already returns no matches
+    captured_kwargs = {}
+
+    def fake_create(**kwargs):
+        captured_kwargs.update(kwargs)
+        return make_stream(
+            "I don't have enough information to answer that.",
+            prompt_tokens=40,
+            completion_tokens=15,
+        )
+
+    monkeypatch.setattr(main.client.chat.completions, "create", fake_create)
+
+    response = client.post("/ask", json={"question": "What is the meaning of life?"})
+    assert response.status_code == 200
+    body = response.json()
+
+    assert body["retrieved_chunks"] == []
+    assert "(no relevant context found)" in captured_kwargs["messages"][0]["content"]
 
 
 def test_rate_limit_exceeded(client, monkeypatch):
